@@ -143,10 +143,10 @@ THREE.SVGLoader.prototype = {
 				var type = command.charAt( 0 );
 				var data = command.substr( 1 ).trim();
 
-				if ( isFirstPoint ) {
+				if ( isFirstPoint === true ) {
 					doSetFirstPoint = true;
+					isFirstPoint = false;
 				}
-				isFirstPoint = false;
 
 				switch ( type ) {
 
@@ -162,6 +162,7 @@ THREE.SVGLoader.prototype = {
 							} else {
 								path.lineTo( point.x, point.y );
 							}
+							if ( j === 0 && doSetFirstPoint === true ) firstPoint.copy( point );
 						}
 						break;
 
@@ -172,6 +173,7 @@ THREE.SVGLoader.prototype = {
 							control.x = point.x;
 							control.y = point.y;
 							path.lineTo( point.x, point.y );
+							if ( j === 0 && doSetFirstPoint === true ) firstPoint.copy( point );
 						}
 						break;
 
@@ -182,6 +184,7 @@ THREE.SVGLoader.prototype = {
 							control.x = point.x;
 							control.y = point.y;
 							path.lineTo( point.x, point.y );
+							if ( j === 0 && doSetFirstPoint === true ) firstPoint.copy( point );
 						}
 						break;
 
@@ -193,6 +196,7 @@ THREE.SVGLoader.prototype = {
 							control.x = point.x;
 							control.y = point.y;
 							path.lineTo( point.x, point.y );
+							if ( j === 0 && doSetFirstPoint === true ) firstPoint.copy( point );
 						}
 						break;
 
@@ -211,6 +215,7 @@ THREE.SVGLoader.prototype = {
 							control.y = numbers[ j + 3 ];
 							point.x = numbers[ j + 4 ];
 							point.y = numbers[ j + 5 ];
+							if ( j === 0 && doSetFirstPoint === true ) firstPoint.copy( point );
 						}
 						break;
 
@@ -229,6 +234,7 @@ THREE.SVGLoader.prototype = {
 							control.y = numbers[ j + 1 ];
 							point.x = numbers[ j + 2 ];
 							point.y = numbers[ j + 3 ];
+							if ( j === 0 && doSetFirstPoint === true ) firstPoint.copy( point );
 						}
 						break;
 
@@ -245,6 +251,7 @@ THREE.SVGLoader.prototype = {
 							control.y = numbers[ j + 1 ];
 							point.x = numbers[ j + 2 ];
 							point.y = numbers[ j + 3 ];
+							if ( j === 0 && doSetFirstPoint === true ) firstPoint.copy( point );
 						}
 						break;
 
@@ -263,6 +270,7 @@ THREE.SVGLoader.prototype = {
 							control.y = ry;
 							point.x = numbers[ j + 0 ];
 							point.y = numbers[ j + 1 ];
+							if ( j === 0 && doSetFirstPoint === true ) firstPoint.copy( point );
 						}
 						break;
 
@@ -277,6 +285,7 @@ THREE.SVGLoader.prototype = {
 							parseArcCommand(
 								path, numbers[ j ], numbers[ j + 1 ], numbers[ j + 2 ], numbers[ j + 3 ], numbers[ j + 4 ], start, point
 							);
+							if ( j === 0 && doSetFirstPoint === true ) firstPoint.copy( point );
 						}
 						break;
 
@@ -294,6 +303,7 @@ THREE.SVGLoader.prototype = {
 							} else {
 								path.lineTo( point.x, point.y );
 							}
+							if ( j === 0 && doSetFirstPoint === true ) firstPoint.copy( point );
 						}
 						break;
 
@@ -304,6 +314,7 @@ THREE.SVGLoader.prototype = {
 							control.x = point.x;
 							control.y = point.y;
 							path.lineTo( point.x, point.y );
+							if ( j === 0 && doSetFirstPoint === true ) firstPoint.copy( point );
 						}
 						break;
 
@@ -314,6 +325,7 @@ THREE.SVGLoader.prototype = {
 							control.x = point.x;
 							control.y = point.y;
 							path.lineTo( point.x, point.y );
+							if ( j === 0 && doSetFirstPoint === true ) firstPoint.copy( point );
 						}
 						break;
 
@@ -325,6 +337,7 @@ THREE.SVGLoader.prototype = {
 							control.x = point.x;
 							control.y = point.y;
 							path.lineTo( point.x, point.y );
+							if ( j === 0 && doSetFirstPoint === true ) firstPoint.copy( point );
 						}
 						break;
 
@@ -343,6 +356,7 @@ THREE.SVGLoader.prototype = {
 							control.y = point.y + numbers[ j + 3 ];
 							point.x += numbers[ j + 4 ];
 							point.y += numbers[ j + 5 ];
+							if ( j === 0 && doSetFirstPoint === true ) firstPoint.copy( point );
 						}
 						break;
 
@@ -361,6 +375,7 @@ THREE.SVGLoader.prototype = {
 							control.y = point.y + numbers[ j + 1 ];
 							point.x += numbers[ j + 2 ];
 							point.y += numbers[ j + 3 ];
+							if ( j === 0 && doSetFirstPoint === true ) firstPoint.copy( point );
 						}
 						break;
 
@@ -377,6 +392,7 @@ THREE.SVGLoader.prototype = {
 							control.y = point.y + numbers[ j + 1 ];
 							point.x += numbers[ j + 2 ];
 							point.y += numbers[ j + 3 ];
+							if ( j === 0 && doSetFirstPoint === true ) firstPoint.copy( point );
 						}
 						break;
 
@@ -395,6 +411,7 @@ THREE.SVGLoader.prototype = {
 							control.y = ry;
 							point.x = point.x + numbers[ j + 0 ];
 							point.y = point.y + numbers[ j + 1 ];
+							if ( j === 0 && doSetFirstPoint === true ) firstPoint.copy( point );
 						}
 						break;
 
@@ -409,6 +426,7 @@ THREE.SVGLoader.prototype = {
 							parseArcCommand(
 								path, numbers[ j ], numbers[ j + 1 ], numbers[ j + 2 ], numbers[ j + 3 ], numbers[ j + 4 ], start, point
 							);
+							if ( j === 0 && doSetFirstPoint === true ) firstPoint.copy( point );
 						}
 						break;
 
@@ -432,13 +450,8 @@ THREE.SVGLoader.prototype = {
 
 				// console.log( type, parseFloats( data ), parseFloats( data ).length  )
 
-				if ( doSetFirstPoint ) {
+				doSetFirstPoint = false;
 
-					firstPoint.copy( point );
-
-					doSetFirstPoint = false;
-
-				}
 			}
 
 			return path;
@@ -759,7 +772,7 @@ THREE.SVGLoader.prototype = {
 			var transform = new THREE.Matrix3();
 			var currentTransform = tempTransform0;
 			var transformsTexts = node.getAttribute( 'transform' ).split( ' ' );
-			
+
 			for ( var tIndex = transformsTexts.length - 1; tIndex >= 0; tIndex-- ) {
 
 				var transformText = transformsTexts[ tIndex ];
@@ -771,7 +784,7 @@ THREE.SVGLoader.prototype = {
 					var transformType = transformText.substr( 0, openParPos );
 
 					var array = parseFloats( transformText.substr( openParPos + 1, closeParPos - openParPos - 1 ) );
-					
+
 					currentTransform.identity();
 
 					switch ( transformType ) {

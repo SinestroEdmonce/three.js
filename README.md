@@ -10,7 +10,7 @@ three.js
 
 #### JavaScript 3D library ####
 
-The aim of the project is to create an easy to use, lightweight, 3D library. The library provides Canvas 2D, SVG, CSS3D and WebGL renderers.
+The aim of the project is to create an easy to use, lightweight, 3D library with a default WebGL renderer. The library also provides Canvas 2D, SVG and CSS3D renderers in the examples.
 
 [Examples](http://threejs.org/examples/) &mdash;
 [Documentation](http://threejs.org/docs/) &mdash;
@@ -79,8 +79,8 @@ If everything went well you should see [this](https://jsfiddle.net/f2Lommf5/).
 
 [npm]: https://img.shields.io/npm/v/three.svg
 [npm-url]: https://www.npmjs.com/package/three
-[build-size]: https://badge-size.herokuapp.com/mrdoob/three.js/master/build/three.min.js.svg?compression=gzip
-[build-size-url]: https://github.com/mrdoob/three.js/tree/master/build
+[build-size]: https://badgen.net/bundlephobia/minzip/three
+[build-size-url]: https://bundlephobia.com/result?p=three
 [build-status]: https://travis-ci.org/mrdoob/three.js.svg?branch=dev
 [build-status-url]: https://travis-ci.org/mrdoob/three.js
 [dependencies]: https://img.shields.io/david/mrdoob/three.js.svg

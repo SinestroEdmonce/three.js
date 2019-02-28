@@ -66,6 +66,7 @@ function glconstants() {
 		TEXTURE_MIN_FILTER: 10241,
 		TEXTURE_WRAP_S: 10242,
 		TEXTURE_WRAP_T: 10243,
+		TEXTURE_WRAP_R: 32882,
 		REPEAT: 10497,
 		COLOR_BUFFER_BIT: 16384,
 		FUNC_ADD: 32774,
@@ -129,7 +130,10 @@ function glconstants() {
 		MAX_VARYING_VECTORS: 36348,
 		MAX_FRAGMENT_UNIFORM_VECTORS: 36349,
 		UNPACK_FLIP_Y_WEBGL: 37440,
-		UNPACK_PREMULTIPLY_ALPHA_WEBGL: 37441
+		UNPACK_PREMULTIPLY_ALPHA_WEBGL: 37441,
+		MAX_SAMPLES: 36183,
+		READ_FRAMEBUFFER: 36008,
+		DRAW_FRAMEBUFFER: 36009
 	};
 
 	return {
@@ -147,10 +151,11 @@ function glconstants() {
 			return {
 				code: code,
 				map: { mappings: '' }
-			}
+			};
+
 		}
 
-	}
+	};
 
 }
 
@@ -160,16 +165,23 @@ function glsl() {
 
 		transform( code, id ) {
 
-			if ( /\.glsl$/.test( id ) === false ) return;
+			if ( /\.glsl.js$/.test( id ) === false ) return;
 
-			var transformedCode = 'export default ' + JSON.stringify(
-				code
-					.replace( /[ \t]*\/\/.*\n/g, '' ) // remove //
-					.replace( /[ \t]*\/\*[\s\S]*?\*\//g, '' ) // remove /* */
-					.replace( /\n{2,}/g, '\n' ) // # \n+ to \n
-			) + ';';
+			code = code.replace( /\/\* glsl \*\/\`((.*|\n|\r\n)*)\`/, function ( match, p1 ) {
+
+				return JSON.stringify(
+					p1
+						.trim()
+						.replace( /\r/g, '' )
+						.replace( /[ \t]*\/\/.*\n/g, '' ) // remove //
+						.replace( /[ \t]*\/\*[\s\S]*?\*\//g, '' ) // remove /* */
+						.replace( /\n{2,}/g, '\n' ) // # \n+ to \n
+				);
+
+			} );
+
 			return {
-				code: transformedCode,
+				code: code,
 				map: { mappings: '' }
 			};
 
@@ -185,7 +197,6 @@ export default {
 		glconstants(),
 		glsl()
 	],
-	// sourceMap: true,
 	output: [
 		{
 			format: 'umd',

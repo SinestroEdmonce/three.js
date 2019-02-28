@@ -44,7 +44,6 @@ import { FileLoader } from './loaders/FileLoader.js';
 import { AudioLoader } from './loaders/AudioLoader.js';
 import { CubeTextureLoader } from './loaders/CubeTextureLoader.js';
 import { DataTextureLoader } from './loaders/DataTextureLoader.js';
-import { JSONLoader } from './loaders/JSONLoader.js';
 import { ObjectLoader } from './loaders/ObjectLoader.js';
 import { TextureLoader } from './loaders/TextureLoader.js';
 import { Material } from './materials/Material.js';
@@ -71,8 +70,10 @@ import { LOD } from './objects/LOD.js';
 import { Points } from './objects/Points.js';
 import { Sprite } from './objects/Sprite.js';
 import { Skeleton } from './objects/Skeleton.js';
+import { SkinnedMesh } from './objects/SkinnedMesh.js';
 import { WebGLRenderer } from './renderers/WebGLRenderer.js';
 import { WebGLRenderTarget } from './renderers/WebGLRenderTarget.js';
+import { WebGLRenderTargetCube } from './renderers/WebGLRenderTargetCube.js';
 import { WebGLShadowMap } from './renderers/webgl/WebGLShadowMap.js';
 import { WebVRManager } from './renderers/webvr/WebVRManager.js';
 import { ImageUtils } from './extras/ImageUtils.js';
@@ -436,17 +437,6 @@ export function BinaryTextureLoader( manager ) {
 	return new DataTextureLoader( manager );
 
 }
-
-Object.assign( JSONLoader.prototype, {
-
-	setTexturePath: function ( value ) {
-
-		console.warn( 'THREE.JSONLoader: .setTexturePath() has been renamed to .setResourcePath().' );
-		return this.setResourcePath( value );
-
-	}
-
-} );
 
 Object.assign( ObjectLoader.prototype, {
 
@@ -1011,6 +1001,12 @@ Object.defineProperty( Skeleton.prototype, 'useVertexTexture', {
 	}
 
 } );
+
+SkinnedMesh.prototype.initBones = function () {
+
+	console.error( 'THREE.SkinnedMesh: initBones() has been removed.' );
+
+};
 
 Object.defineProperty( Curve.prototype, '__arcLengthDivisions', {
 
@@ -1582,6 +1578,27 @@ Object.defineProperties( WebGLShadowMap.prototype, {
 
 //
 
+Object.defineProperties( WebGLRenderTargetCube.prototype, {
+
+	activeCubeFace: {
+		set: function ( /* value */ ) {
+
+			console.warn( 'THREE.WebGLRenderTargetCube: .activeCubeFace has been removed. It is now the second parameter of WebGLRenderer.setRenderTarget().' );
+
+		}
+	},
+	activeMipMapLevel: {
+		set: function ( /* value */ ) {
+
+			console.warn( 'THREE.WebGLRenderTargetCube: .activeMipMapLevel has been removed. It is now the third parameter of WebGLRenderer.setRenderTarget().' );
+
+		}
+	}
+
+} );
+
+//
+
 Object.defineProperties( WebGLRenderTarget.prototype, {
 
 	wrapS: {
@@ -1888,6 +1905,14 @@ export function Projector() {
 export function CanvasRenderer() {
 
 	console.error( 'THREE.CanvasRenderer has been removed' );
+
+}
+
+//
+
+export function JSONLoader() {
+
+	console.error( 'THREE.JSONLoader has been removed.' );
 
 }
 
